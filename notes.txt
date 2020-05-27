@@ -1,0 +1,10 @@
+We have to specify the model manager that we're going to use fot the objects and this
+is required because we need to use our custom user model with the Django CLI.. so Django
+needs to have a custom model manager for the user model so it knows how to create users
+and control users using the Django command line tools...
+
+ex(look in our code)
+objects = UserProfileManager()
+
+-->In the parenthesis, we will pass in the class we're going to create the manager class
+we will also  create UserProfileManager class further...
