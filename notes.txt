@@ -8,3 +8,26 @@ objects = UserProfileManager()
 
 -->In the parenthesis, we will pass in the class we're going to create the manager class
 we will also  create UserProfileManager class further...
+
+***APIView***
+
+--> The most basic type of view we can use to build our API...it enables us to
+describe the logic which makes our API endpoint...
+
+An APIView allows us to define functions that match the standard HTTP methods...GET,POST,PUT,PATCH,delete
+
+By allowing us to customize the function for each HTTP method on our API URL, API views give us the most control
+over our application logic
+
+WHEN SHOULD YOU USE APIVIEWS ?
+--> Need full control over application logic
+--> Processing files and rendering a synchronous response
+--> When calling external APIs/services.
+--> Access to local files or data..
+
+The HelloApiView--->  It allows us to define the application logic for our endpoint that
+
+we're going to assign to this view (i.e. HelloApiView)..the way it works is you define
+a URL which is our endpoint and then you assign it to this view and the Django rest_framework
+handles it by calling appropriate function in the view for the HTTP request that we make..so
+we're going to be accepting HTTP GET request to our API, 
