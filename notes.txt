@@ -30,4 +30,20 @@ The HelloApiView--->  It allows us to define the application logic for our endpo
 we're going to assign to this view (i.e. HelloApiView)..the way it works is you define
 a URL which is our endpoint and then you assign it to this view and the Django rest_framework
 handles it by calling appropriate function in the view for the HTTP request that we make..so
-we're going to be accepting HTTP GET request to our API, 
+we're going to be accepting HTTP GET request to our API,
+
+
+Serializer --> It is a feature from the Django rest framework that allows you to easily convert
+               data inputs into Python objects and vice-versa..its kind of similar to a Django form which you
+              define and it has the various fields that you want to accept for the input for your api
+              so, if we are going to add post or update functionality to our HelloApiView, then we need
+              to create a serializer to recieve the content that we post to the API...
+
+              We use serializers to tell our APIView what data to expect when making POST,PUT and PATCH
+              requests to our API ..
+
+              we set serializer by writing...
+              --> serializer_class = serializers.HelloSerializer()
+              ** This configures our APIView to have the serializer class that we already created...
+              It says whenever you are sending a post,put or patch request..expect an input
+              with name and we validate that input to a maximum length of 10...
