@@ -13,7 +13,7 @@ class UserProfileManager(BaseUserManager):
             raise ValueError('User must have an email address')
 
         email=self.normalize_email(email) # It makes the second half of the email address all lowercase..
-        user = self.model(email=email, name=name)  #Creation of user model..this creates a new model that the user manager is representing..creates new mmodel object
+        user = self.model(email=email, name=name,gender=gender)  #Creation of user model..this creates a new model that the user manager is representing..creates new mmodel object
 
         user.set_password(password) # Ensures that password is stored as hash in the database..and not as a normal string
         user.save(using=self._db)
@@ -33,6 +33,7 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
     """ Database model for the users in the system """
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default = False)
 

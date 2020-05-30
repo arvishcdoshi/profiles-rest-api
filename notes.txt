@@ -73,3 +73,19 @@ API: the APIView and the ViewSet..
 when we access http://127.0.0.1:8000/api/hello_viewset...
 we do HTTP get request to the base of the registered view which will take us to the
 'list' function
+
+
+
+Model Serializer --> Very similar to regular serializer...except it provides us extra functionality which makes it really easy
+to work with existing django database models
+
+
+
+
+In the serializer, we need to specify a list of fields in our model that we want to manage through...
+our serializer...so this is a list of all fields that you want  to either make accessible in our API or you
+want to create new models with our serializer
+
+
+Model ViewSet --> It is very similar to a standard view set except it's specifically designed for managing models through
+our API..so it has a lit of functionality that we need for managing models built into it..

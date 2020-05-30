@@ -12,6 +12,8 @@ router.register('hello_viewset',views.HelloViewSet,base_name="hello-viewset") #l
                                                                                # retrieving function provided by the Django...
 # we don't use forward slash '/' after hello_viewset because routers will create all 4 url's for us,
 
+router.register('profile',views.UserProfileViewset)
+
 urlpatterns = [
 
 
