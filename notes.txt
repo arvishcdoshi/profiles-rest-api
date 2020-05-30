@@ -47,3 +47,29 @@ Serializer --> It is a feature from the Django rest framework that allows you to
               ** This configures our APIView to have the serializer class that we already created...
               It says whenever you are sending a post,put or patch request..expect an input
               with name and we validate that input to a maximum length of 10...
+
+
+ViewSets --> The Django Rest Framework offers two classes that help us write the logic for our
+API: the APIView and the ViewSet..
+
+ What are ViewSets ?
+ --> Just like APIView, the ViewSets allow us to write the logic for our endpoints however instead of defining functions,
+     which map to HTTP methods, ViewSets accept functions that map to common API object actions such as
+     'list' for getting list of objects
+     'create' for creating new objects
+     'retrieve' for getting a specific object
+     'update' for updating an object
+     'partial_update' for updating part of object
+     'destroy' for deleting an object
+
+
+  When should we use ViewSet ?
+  --> A simple CRUD interface to your database
+  --> A quick and simple api to manage predefined objects
+  --> Little to no customization on the logic
+  --> If our API is working with standard database structure..
+
+
+when we access http://127.0.0.1:8000/api/hello_viewset...
+we do HTTP get request to the base of the registered view which will take us to the
+'list' function
