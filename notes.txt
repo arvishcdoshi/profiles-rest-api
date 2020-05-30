@@ -89,3 +89,6 @@ want to create new models with our serializer
 
 Model ViewSet --> It is very similar to a standard view set except it's specifically designed for managing models through
 our API..so it has a lit of functionality that we need for managing models built into it..
+
+We must provide a queryset to the to the model viewset so it knows which objects in the database are going to be managed
+through this viewset  
