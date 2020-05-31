@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from django.conf import settings
+
 # Create your models here.
 
 class UserProfileManager(BaseUserManager):
@@ -53,3 +55,25 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         """Return string representation of our user"""
         return self.email
+
+
+
+"""Below model is the model we are gonna use to allow users to store status updates in the system..
+Everytime they create a new update,its gonna create a new ProfileFeedItem object and associate
+that object with the user that created it..The way you link models to other models in Django is
+using a foreign key...when u use a foreign key field, it sets up a foreign key relationship in
+the database to a remote model..benefit of doing this is that it allows you to ensure that the
+integrity of the database is maintained...so you can never create ProfileFeedItem for a
+user profile that doesn't exist
+"""
+
+
+
+class ProfileFeedItem(models.Model):
+    user_profile = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    status_text = models.CharField(max_length=255)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        """Return the models as a string, below line means when we convert model to a string,we want to see the status text value associated to the model"""
+        return self.status_text

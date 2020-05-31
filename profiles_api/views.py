@@ -4,8 +4,10 @@ from rest_framework import status  # list of handy HTTP status codes when return
 from rest_framework import viewsets
 
 from rest_framework import filters
-from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.views import ObtainAuthToken # a view that comes with Django-rest-framework that we can use to generate an Auth-Token
 from rest_framework.settings import api_settings
+#from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from profiles_api import serializers #created in serializers.py
 from profiles_api import permissions
@@ -122,5 +124,37 @@ class UserProfileViewset(viewsets.ModelViewSet):
 class UserLoginApiView(ObtainAuthToken):
 
     """Handle creating user Authentication tokens"""
-    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
-    
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES # enables functionality in Django-Admin
+
+
+
+class UserProfileFeedViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating profile feed items"""
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.ProfileFeedItemSerializer
+    queryset = models.ProfileFeedItem.objects.all() # we're gonna manage all of our profile feed item objects from our model in our  viewset
+    permission_classes = (
+       permissions.UpdateOwnStatus,
+       #IsAuthenticatedOrReadOnly
+       IsAuthenticated
+    )
+
+
+    def perform_create(self,serializer): # used for customizing the logic for creating an object, we can do this by using the perform_create function..this perform_create function gets called everytime we perform HTTP POST to our viewset..
+        """Sets the user profile to the logged in user"""
+        serializer.save(user_profile=self.request.user)
+
+
+
+
+    """ Explanation of line no 137...
+When a new object is created, djangorestframework calls perform_create and it passes in the serializer that we're using to create
+object ...serializer is a model serializer...so it has a save function assigned to it and that save function is used to save the
+contents of the serializer to an object in the database..we're calling serializer.save() and we're passing an additional keyword
+for the user profile...This gets passed in addition to all of the items in the serializer that have been validated
+
+We've set user_profile to self.request.user..the request object is an object that gets passed into all viewsets every time a request is made
+and as the name suggests, it contains all of the details about the request being made to the view set..because we've added TokenAuthentication
+to our viewset, if the user has authenticated, then the request will have a user associated to the authenticated user and so this
+user fiels gets added whenever the user is authenticated and if they're not authenticated, then it's just set to an anonymous user account
+    """

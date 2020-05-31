@@ -88,7 +88,15 @@ want to create new models with our serializer
 
 
 Model ViewSet --> It is very similar to a standard view set except it's specifically designed for managing models through
-our API..so it has a lit of functionality that we need for managing models built into it..
+our API..so it has a lot of functionality that we need for managing models built into it..
 
 We must provide a queryset to the to the model viewset so it knows which objects in the database are going to be managed
-through this viewset  
+through this viewset
+
+There is an issue: any user is able to update the details of any other user...this shouldn't be there
+
+in the file permissions.py ,
+
+What happens there is that every time a request is made. the Django Rest Framework will call the function
+has_object_permission and it will pass in request object, view and the actual obj..that we're checking the
+permissions against  

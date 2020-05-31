@@ -20,17 +20,17 @@ class UserProfileSerializer(serializers.ModelSerializer):
 #meta class is used to configure serializer to point to a specific model in our project
     class Meta:
         model = models.UserProfile
-        fields = ('id','email','name','password')
+        fields = ('id','email','name','password') #list of fields in our model that we wish to manage through serializer
         extra_kwargs = {
         'password':{
             'write_only':True,
-            'style': {'input_type':'password'}
+            'style': {'input_type':'password'} # ensure dots(..) display when inputing passwords..
         }
     }
 
     def create(self,validated_data):
         """Create and return new user"""
-        user = models.UserProfile.objects.create_user(
+        user = models.UserProfile.objects.create_user(        # creating and returning new user from User profile model manager
         email = validated_data['email'],
         name = validated_data['name'],
         password = validated_data['password']
@@ -44,4 +44,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
             password = validated_data.pop('password')
             instance.set_password(password)
 
-        return super().update(instance,validated_data)    
+        return super().update(instance,validated_data)
+
+
+
+class ProfileFeedItemSerializer(serializers.ModelSerializer):
+    """Serializes profile feed items"""
+
+    class Meta:
+        model = models.ProfileFeedItem # sets our serializer to ProfileFeedItem model created in models.py
+        fields = ('id','user_profile','status_text','created_on') #
+        extra_kwargs = {
+        'user_profile':{'read_only':True}
+        }
